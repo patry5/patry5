@@ -1,16 +1,35 @@
-## Hi there 👋
+using System;
 
-<!--
-**patry5/patry5** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Podaj tekst do zaszyfrowania: ");
+        string tekst = Console.ReadLine();
+        Console.Write("Podaj klucz: ");
+        int klucz = int.Parse(Console.ReadLine());
 
-Here are some ideas to get you started:
+        Console.WriteLine(SzyfrCezara(tekst, klucz));
+    }
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+    static string SzyfrCezara(string tekst, int klucz)
+    {
+        string wynik = "";
+        for (int i = 0; i < tekst.Length; i++)
+        {
+            char znak = tekst[i];
+            if ((znak >= 'a' && znak <= 'z') || (znak >= 'A' && znak <= 'Z'))
+            {
+                char baza = (znak >= 'A' && znak <= 'Z') ? 'A' : 'a';
+                int przesuniecie = (znak - baza + klucz) % 26;
+                char nowyZnak = (char)(baza + przesuniecie);
+                wynik += nowyZnak;
+            }
+            else
+            {
+                wynik += znak;
+            }
+        }
+        return wynik;
+    }
+}
